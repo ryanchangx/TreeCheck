@@ -8,8 +8,10 @@
           <Checklist @totalDones="msg => curCompleted=msg" @totalTotals="msg => total=msg" :curCompletedPass="curCompleted"></Checklist>
       </div>
       <div class="tree-container">
+          <!-- {{changeImage||filler}} -->
         <!-- <TreeImage :totalPass="total" :curCompletedPass="curCompleted"></TreeImage> -->
-        IMMAGE: {{changeImage || filler}}
+         <!-- <img alt="Vue logo" src="./1.png" > -->
+         <img :src='changeImage||filler'>
         <!--tree comp here-->
       </div>
     </div>
@@ -21,7 +23,7 @@
 import Checklist from '@/components/Checklist.vue'  
 import TreeImage from '@/components/TreeImage.vue'
 import Vue from 'vue';
-let imgURLS = ["img1", "img2", "img3", "img4"]
+let imgURLS = ["https://cdn.discordapp.com/attachments/959836713239314457/959981006381801492/1.PNG", "https://cdn.discordapp.com/attachments/959836713239314457/959981006646030416/25.PNG", "https://cdn.discordapp.com/attachments/959836713239314457/959981006893502464/75.PNG", 'https://cdn.discordapp.com/attachments/959836713239314457/959981007132557373/100.PNG']
 //onst EventBus = new Vue();
 //import Checklist from '../components/Checklist.vue'
 
