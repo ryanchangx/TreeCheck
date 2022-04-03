@@ -3,16 +3,20 @@
     <div id="wrapper">
       CURRENT TOTAL {{total}}
       CURRENT STUFF {{curCompleted}}
-      <h1> MY LIST </h1>
+      <h1 class="title"> My List </h1>
       <div class="lb-container">
           <Checklist @totalDones="msg => curCompleted=msg" @totalTotals="msg => total=msg" :curCompletedPass="curCompleted"></Checklist>
       </div>
-      <div class="tree-container">
+      <div class="split right">
+        <div class="centered">
+          <div id= "wrapper">
           <!-- {{changeImage||filler}} -->
         <!-- <TreeImage :totalPass="total" :curCompletedPass="curCompleted"></TreeImage> -->
          <!-- <img alt="Vue logo" src="./1.png" > -->
          <img :src='changeImage||filler'>
+         </div>
         <!--tree comp here-->
+        </div>
       </div>
     </div>
   </div>
@@ -58,11 +62,53 @@ export default {
 }
 </script>
 
-
 <style>
 body {
   background-color:#cbe8d6;
   text-align: center;
 }
+
+.split {
+  
+  /* width: 100%; */
+  position: fixed;
+  z-index: 1;
+  /* overflow-x: hidden; */
+  overflow-y: hide;
+  padding-top: 20px;
+}
+
+/* Control the right side */
+.right {
+  position: fixed;
+  top: 15vh;
+  height: 70vh;
+  right: 5vw;
+  width: 50vw;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  height: 100%;
+  padding: 20px;
+  /* position: absolute; */
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  text-align: center;
+}
+#wrapper {
+  height: 100%;
+}
+
+/* Style the image inside the centered container, if needed */
+.centered img {
+  transform: translate(15%, 0%);
+  text-align: center;
+  height: 100%;
+  width: auto;
+  /* height: auto; */
+}
+
 
 </style>

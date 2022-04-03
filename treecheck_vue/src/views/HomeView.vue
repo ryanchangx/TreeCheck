@@ -25,7 +25,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .title{
   color:	#3b8570;
   font-family: 'Shrikhand', cursive;

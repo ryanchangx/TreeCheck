@@ -49,7 +49,7 @@ class AddTask(APIView):
         pass
 
     def post(self, request, user_id):
-        task = Tasks.objects.create(user_id=user_id, task_name=request.data['task_name']),
+        task = Tasks.objects.create(user_id=user_id, task_name=request.data['task_name'])
         task.save()
         return Response(status=201)
 
@@ -59,7 +59,7 @@ class DeleteTask(APIView):
 
     def post(self, request, task_id):
         try:
-            task = Tasks.objects.get(task_id=task_id)
+            task = Tasks.objects.filter(task_name=request.data['task_name'])[0]
             task.delete()
             return Response(status=204)
         except Tasks.DoesNotExist:
@@ -106,3 +106,16 @@ class UserRequest(APIView):
 
     def post(self):
         pass
+
+
+# make user
+# check user
+
+class CreateUser(APIView):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        user = User.objects.create(username=request.data['username'])
+        user.save()
+        return Response(status=201)

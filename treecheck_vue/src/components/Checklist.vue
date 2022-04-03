@@ -17,11 +17,6 @@
   </div>
   </div>
 
-<div class="split right">
-  <div class="centered">
-    <h2>Tree here</h2>
-  </div>
-</div>
 
 
 </div>
@@ -53,10 +48,7 @@
   width: 50vw;
 }
 
-/* Control the right side */
-.right {
-  right: 0;
-}
+
 
 /* If you want the content centered horizontally and vertically */
 .centered {
@@ -89,19 +81,22 @@ ul {
 }
 li {
   height: 70px;
-  background-color: #507d7093;
+  background-color: #3b8570;
+  color: white;
+  font-family: 'Shrikhand', cursive;
+  font-size: 30px;
+  text-align: center;
   margin: 20px;
   border-radius: 10px;
-  /* display: grid;
-  grid-template-columns: 30px 1fr;
-  grid-template-rows: 20px 40px;
-  column-gap: 20px; */
+  display: grid;
+  /*grid-template-columns: 30px 1fr;*/
+  grid-template-rows: 20px 40px ;
+  column-gap: 20px;
 }
 .remove {
   /* grid-row: 1 / 3;
   grid-column: 1 / 2; */
-  color: white;
-  background-color: #88c5b4;
+  background-color: white;
   padding: 10px;
   border-color: rgba(255, 255, 255, 0);
   /* border-width: 4px;
@@ -186,22 +181,32 @@ export default {
   },
   methods: {
     getTasks() {
-      // axios.get('/api/v1/tasks-list/' + '1', {headers: head})
-      //   .then(response => {
-      //     this.tasks = response.data;
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
-
-      const element = document.querySelector('#post-request-set-headers .article-id');
       const headers = { 
-          'Authorization': 'Bearer my-token',
-          'My-Custom-Header': 'foobar'
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': '*',
       };
-      axios.get('usertasklist/' + '1/', { headers })
-          .then(response => element.innerHTML = response.data.id);
-      },
+      axios.get('/api/v1/usertasklist/' + '1/', {headers: headers})
+        .then(response => {
+          this.tasks = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+      // const element = document.querySelector('#post-request-set-headers .article-id');
+      // const headers = { 
+      //     'Access-Control-Allow-Origin': '*',
+      //     'Access-Control-Allow-Headers': '*',
+      // };
+      // axios.get('usertasklist/' + '1/')
+      //     .then(response => {
+      //   this.tasks = response.data;
+      // })
+      // .catch(error => {
+      //   console.log(error);
+      // });
+      // },
+    },
     addTask() {
       this.tasks.push({ id: id++, text: this.newTask, done: false })
       this.newTask = '';
