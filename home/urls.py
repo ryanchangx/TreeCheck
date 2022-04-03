@@ -16,4 +16,5 @@ urlpatterns = [
     # get all users
     # sign in / sign up methods
     # check what user you are right now
+    path('userlogin/', views.UserLogin.as_view()),
 ]

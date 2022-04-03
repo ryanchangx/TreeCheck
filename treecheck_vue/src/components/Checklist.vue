@@ -11,7 +11,7 @@
     <li v-for="task in tasks" :key="task.id">
       <input type="checkbox" v-model="task.task_status" @click="!task.task_status ? totalDones++ : totalDones--"> <!--this shits switched bc tastk_status is delayed-->
       <span :class="{done: task.task_status}">{{ task.text }}</span>
-      <b1 class = "removebutton"><button @click="removeTask(task)">Remove Task</button></b1>
+      <button @click="removeTask(task)">Remove Task</button>
     </li>
   </ul>
   </div>
@@ -78,19 +78,21 @@ li {
   font-family: 'Shrikhand', cursive;
   font-size: 30px;
   text-align: center;
-  margin: 20px;
+  margin: 30px;
   border-radius: 10px;
   display: grid;
   /*grid-template-columns: 30px 1fr;*/
   grid-template-rows: 20px 40px ;
-  column-gap: 20px;
+  /*column-gap: 20px;*/
+
 }
 .remove {
   /* grid-row: 1 / 3;
   grid-column: 1 / 2; */
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
   padding: 10px;
   border-color: rgba(255, 255, 255, 0);
+  
   /* border-width: 4px;
   border-color: black;*/
   /*border-style: dotted;*/
@@ -107,16 +109,13 @@ li {
   /*transition: width 500ms, filter 500ms, background-color 350ms, box-shadow 3s 2s, border-bottom-right-radius 3s;*/
 }
 .remove:hover {
+  background-color: #74b6a3;
  /* filter: blur(0px);
   border-style: solid; */
-  background-color: #74b6a3;
   /*border-bottom-right-radius: 40px;
   box-shadow: 0px 0px 5px 1px #f0f;*/
 }
 
-.removebutton{
-      color: white;
-}
 </style>
 
 

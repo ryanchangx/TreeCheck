@@ -71,11 +71,11 @@ class ToggleTask(APIView):
 
     def post(self, request, task_id):
         try:
-            task = Tasks.objects.get(task_id=task_id)
+            task = Tasks.objects.filter(task_name=request.data['task_name'])[0]
             task.task_status = not task.task_status
             task.save()
             return Response(status=204)
-        except Tasks.DoesNotExist:
+        except:
             return Response(status=404)
 
 class UserTaskList(APIView):
@@ -111,11 +111,22 @@ class UserRequest(APIView):
 # make user
 # check user
 
-class CreateUser(APIView):
+class UserLogin(APIView):
     def get(self, request):
-        pass
+        try:
+            query = User.objects.filter(username=request.data['username'])
+            user = query[0]
+            serializer = UserSerializer(user)
+            return Response(serializer.data)
+        except:
+            return Response(status=404)
 
     def post(self, request):
-        user = User.objects.create(username=request.data['username'])
-        user.save()
-        return Response(status=201)
+        query = User.objects.filter(username=request.data['username'])
+        if query.count() > 0:
+            user = query[0]
+        else:
+            user = User.objects.create(username=request.data['username'])
+            user.save()
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
