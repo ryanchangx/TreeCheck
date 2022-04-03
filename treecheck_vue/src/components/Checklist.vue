@@ -11,7 +11,7 @@
   <ul>
     <li v-for="task in tasks" :key="task.id">
       <input type="checkbox" v-model="task.task_status" @click="!task.task_status ? totalDones++ : totalDones--"> <!--this shits switched bc tastk_status is delayed-->
-      <span :class="{done: task.task_status}">{{ task.task_name }}</span>
+      <span :class="{done: task.task_status}">{{ task.text }}</span>
       <button @click="removeTask(task)">X</button>
     </li>
   </ul>
@@ -39,7 +39,13 @@
   ]
 */
 import axios from 'axios';
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 let id = 0;
+
+let head = {
+  'Access-Control-Allow-Headers': '*',
+  
+}
 
 export default {
   name: 'Checklist',
@@ -51,6 +57,7 @@ export default {
       tasks: [],
       totalTotals: 0, //get from storage
       totalDones: 0, //get from storage
+      recentDelete: "",
     }
   },
   components: {
@@ -62,32 +69,62 @@ export default {
   watch: {
     totalDones(){
       this.$emit('totalDones', this.totalDones);
+      
     },
     totalTotals(){
       this.$emit('totalTotals', this.totalTotals);
+      
     }
   },
   methods: {
     getTasks() {
-      axios.get('/api/v1/tasks-list')
-        .then(response => {
-          this.tasks = response.data;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
+      // axios.get('/api/v1/tasks-list/' + '1', {headers: head})
+      //   .then(response => {
+      //     this.tasks = response.data;
+      //   })
+      //   .catch(error => {
+      //     console.log(error);
+      //   });
+
+      const element = document.querySelector('#post-request-set-headers .article-id');
+      const headers = { 
+          'Authorization': 'Bearer my-token',
+          'My-Custom-Header': 'foobar'
+      };
+      axios.get('usertasklist/' + '1/', { headers })
+          .then(response => element.innerHTML = response.data.id);
+      },
     addTask() {
       this.tasks.push({ id: id++, text: this.newTask, done: false })
       this.newTask = '';
       this.totalTotals++;
+      axios.post('/addtask', {
+          Headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*',
+          },
+          user_id: 1,
+          task_name: this.tasks[this.tasks.length - 1].text,
+        }
+      )
     },
     removeTask(tasks) {
+      let temp = tasks.text;
       if(tasks.task_status === true){
         this.totalDones--;
       }
       this.tasks = this.tasks.filter((t) => t !== tasks)
       this.totalTotals--;
+      axios.post('/deletetask', {
+          Headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*',
+          },
+          user_id: 1,
+          task_name: temp,
+        }
+      )
     },
     toggleBusy() {
       this.isBusy = !this.isBusy;
