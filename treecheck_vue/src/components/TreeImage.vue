@@ -8,12 +8,14 @@ import Checklist from './Checklist.vue'
 export default {
   
   name: 'TreeImage',
-  props(){
-      total: Integer
+  props:{
+      totalPass: Number,
+      curCompletedPass: Number
   },
   data() {  
     return {
-      curCompleted: 0,
+      total: this.totalPass,
+      curCompleted: this.curCompletedPass,
       curLink: imgURLS[0],
     }
   },
@@ -24,7 +26,7 @@ export default {
       }
     },
   components: {
-      Checklist
+      Checklist,
   }
 }
 
@@ -32,4 +34,5 @@ export default {
 
 <template>
   <img alt="Current Tree" :src="curLink">
+
 </template>

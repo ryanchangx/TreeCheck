@@ -6,10 +6,11 @@
   <form @submit.prevent="addTask">
     <input v-model="newTask" />
     <button>Add Task</button>
+    
   </form>
   <ul>
     <li v-for="task in tasks" :key="task.id">
-      <input type="checkbox" v-model="task.task_status">
+      <input type="checkbox" v-model="task.task_status" @click="!task.task_status ? totalDones++ : totalDones--"> <!--this shits switched bc tastk_status is delayed-->
       <span :class="{done: task.task_status}">{{ task.task_name }}</span>
       <button @click="removeTask(task)">X</button>
     </li>
@@ -47,13 +48,24 @@ export default {
       newTask: '',
       hideCompleted: false,
       isBusy: false,
-      tasks: []
+      tasks: [],
+      totalTotals: 0, //get from storage
+      totalDones: 0, //get from storage
     }
   },
   components: {
   },
   mounted() {
-    this.getTasks();
+    this.getTasks(); //change to get from api
+  },
+  emits : ['totalDones', 'totalTotals'],
+  watch: {
+    totalDones(){
+      this.$emit('totalDones', this.totalDones);
+    },
+    totalTotals(){
+      this.$emit('totalTotals', this.totalTotals);
+    }
   },
   methods: {
     getTasks() {
@@ -67,10 +79,15 @@ export default {
     },
     addTask() {
       this.tasks.push({ id: id++, text: this.newTask, done: false })
-      this.newTask = ''
+      this.newTask = '';
+      this.totalTotals++;
     },
     removeTask(tasks) {
+      if(tasks.task_status === true){
+        this.totalDones--;
+      }
       this.tasks = this.tasks.filter((t) => t !== tasks)
+      this.totalTotals--;
     },
     toggleBusy() {
       this.isBusy = !this.isBusy;
