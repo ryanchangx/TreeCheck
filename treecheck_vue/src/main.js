@@ -1,4 +1,6 @@
 import { createApp } from 'vue'
+import { createAuth0 } from '@auth0/auth0-vue';
+
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
