@@ -6,9 +6,10 @@ from rest_framework.response import Response
 # from account.api.serializer import RegistrationSerializer
 from rest_framework.authtoken.models import Token
 
-from .models import ProgressTree, Tasks, User
-from .serializers import ProgressTreeSerializer, TasksSerializer, UserSerializer
+from .models import ProgressTree, Tasks, User, UserTree
+from .serializers import ProgressTreeSerializer, TasksSerializer, UserSerializer, UserTreeSerializer
 
+import random
 # @api_view(['POST',])
 # def registration_view(request):
 #     if request.method == 'POST':
@@ -130,3 +131,29 @@ class UserLogin(APIView):
             user.save()
         serializer = UserSerializer(user)
         return Response(serializer.data)
+
+
+class UsersList(APIView):
+    def get(self, request):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+    def post(self):
+        pass
+
+
+class LeaderboardData(APIView):
+    def get(self, request):
+        userlist = User.objects.all()
+        treelist = ProgressTree.objects.all()
+        for tree in treelist:
+            for user in userlist:
+                if tree.user_id == user.id:
+                    if UserTree.objects.filter(username=user.username).count() == 0:
+                        UserTree.objects.create(username=user.username, treelevel=random.randint(1, 4))
+        uts = UserTreeSerializer(UserTree.objects.order_by('-treelevel'), many=True)
+        return Response(uts.data)
+
+    def post(self):
+        pass

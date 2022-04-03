@@ -1,8 +1,6 @@
 <template>
   <div class="home">
     <div id="wrapper">
-      CURRENT TOTAL {{total}}
-      CURRENT STUFF {{curCompleted}}
       <h1 class="title"> My List </h1>
       <div class="lb-container">
           <Checklist @totalDones="msg => curCompleted=msg" @totalTotals="msg => total=msg" :curCompletedPass="curCompleted"></Checklist>
@@ -10,6 +8,7 @@
       <div class="split right">
         <div class="centered">
           <div id= "wrapper">
+            <b1 class= "growthprog">Today's Growth:</b1>
           <!-- {{changeImage||filler}} -->
         <!-- <TreeImage :totalPass="total" :curCompletedPass="curCompleted"></TreeImage> -->
          <!-- <img alt="Vue logo" src="./1.png" > -->
@@ -26,6 +25,7 @@
 // @ is an alias to /src
 import Checklist from '@/components/Checklist.vue'  
 import TreeImage from '@/components/TreeImage.vue'
+import router from '../router'
 import Vue from 'vue';
 let imgURLS = ["https://cdn.discordapp.com/attachments/959836713239314457/959981006381801492/1.PNG", "https://cdn.discordapp.com/attachments/959836713239314457/959981006646030416/25.PNG", "https://cdn.discordapp.com/attachments/959836713239314457/959981006893502464/75.PNG", 'https://cdn.discordapp.com/attachments/959836713239314457/959981007132557373/100.PNG']
 //onst EventBus = new Vue();
@@ -38,7 +38,8 @@ export default {
       total : 0,
       curCompleted : 0,
       image : imgURLS[0],
-      filler : imgURLS[0]
+      filler : imgURLS[0],
+      userID : -1,
     }
   },
   components: {
@@ -51,7 +52,12 @@ export default {
     }
   },
   mounted(){
-    //set totalPass and curCompletedPass according to API
+    if($cookies.get('loggedIn') != 'true'){
+      $cookies.set('loggedIn', 'false');
+      router.push("/login");
+      alert("please log in!")
+    }
+    this.userID = $cookies.get('userID');
   },
   methods:{
     updateTree(left, right){
@@ -62,7 +68,16 @@ export default {
 }
 </script>
 
-<style>
+<style scope>
+.growthprog{
+  color:	#3b8570;
+  font-family: 'Shrikhand', cursive;
+  font-size: 30px;
+  text-align: center;
+  top: 10vh;
+  letter-spacing: .5;
+}
+
 body {
   background-color:#cbe8d6;
   text-align: center;
@@ -80,11 +95,12 @@ body {
 
 /* Control the right side */
 .right {
+  background: rgba(255, 255, 255, 0.294);
   position: fixed;
-  top: 15vh;
-  height: 70vh;
+  top: 30vh;
+  height: 60vh;
   right: 5vw;
-  width: 50vw;
+  width: 40vw;
 }
 
 /* If you want the content centered horizontally and vertically */
@@ -103,9 +119,9 @@ body {
 
 /* Style the image inside the centered container, if needed */
 .centered img {
-  transform: translate(15%, 0%);
+  transform: translate(-5%, 0%);
   text-align: center;
-  height: 100%;
+  height: 90%;
   width: auto;
   /* height: auto; */
 }

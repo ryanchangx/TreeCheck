@@ -4,7 +4,7 @@ import Leaderboard from '../components/Leaderboard.vue'
 import ProfileView from '../views/ProfileView.vue'
 import ChecklistView from '../views/ChecklistView.vue'
 import { LayoutPlugin } from 'bootstrap-vue'
-import Login from '../views/LoginView.vue'
+import LoginView from '../views/LoginView.vue'
 
 
 const routes = [
@@ -36,11 +36,11 @@ const routes = [
     name: 'checklist',
     component: ChecklistView
   },
-  // {
-  //   path: '/login',
-  //   name: 'login',
-  //   component: LoginView
-  // }
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginView
+  }
 ]
 
 const router = createRouter({

@@ -4,7 +4,7 @@
     <div id="wrapper">
   <form @submit.prevent="addTask">
     <input v-model="newTask" />
-    <button>Add Task</button>
+    <button>Add</button>
     
   </form>
   <ul>
@@ -24,6 +24,38 @@
 
 
 <style>
+form input{
+  height: 30px;
+  background-color: white;
+  color: #3b8570;
+  font-family: 'Shrikhand', cursive;
+  font-size: 20px;
+  text-align: center;
+  margin: 30px;
+  border-radius: 10px;
+  border-color: white;
+  /*grid-template-columns: 30px 1fr;*/
+  letter-spacing: .5px;
+  /*column-gap: 20px;*/
+}
+
+form button{
+  border-radius: 10px;
+  border-color: rgba(255, 255, 255, 0);
+  background-color: white;
+  color: #3b8570;
+  font-size: 10px;
+  text-align: center;
+  margin: 0px;
+  font-family: 'Shrikhand', cursive;
+  font-size: 20px;
+  transform: 15px;
+  letter-spacing: .5px;
+}
+form button:hover{
+  background-color: #f1fefb;
+}
+
 .done {
   text-decoration: line-through;
 }
@@ -35,13 +67,14 @@
   top: 0;
   /* overflow-x: hidden; */
   overflow-y: scroll;
-  padding-top: 20px;
+  overflow-y: scroll;
 }
 /* Control the left side */
 .left {
+  background: rgba(255, 255, 255, 0.294);
   position: fixed;
-  top: 25vh;
-  height: 50vh;
+  top: 30vh;
+  height: 60vh;
   left: 5vw;
   width: 50vw;
 }
@@ -83,6 +116,7 @@ li {
   display: grid;
   /*grid-template-columns: 30px 1fr;*/
   grid-template-rows: 20px 40px ;
+  letter-spacing: .5px;
   /*column-gap: 20px;*/
 
 }
@@ -116,6 +150,30 @@ li {
   box-shadow: 0px 0px 5px 1px #f0f;*/
 }
 
+li input{
+  width: 50px;
+  height:50px;
+}
+
+
+li button {
+    background-color: 	#3b8570;
+    font-size: 50%;
+    border-color: #3b857000;
+    text-align: right;
+    color: rgba(255, 255, 255, 0.617);
+    letter-spacing: .5px;
+}
+
+li button:hover {
+    background-color: 	#377664;
+    font-size: 50%;
+    border-color: #3b857000;
+    text-align: right;
+    color: rgba(255, 255, 255, 0.617);
+    letter-spacing: .5px;
+}
+
 </style>
 
 
@@ -145,6 +203,7 @@ export default {
   data() {
     return {
       id : 0,
+      user_id : '',
       newTask: '',
       hideCompleted: false,
       isBusy: false,
@@ -157,7 +216,9 @@ export default {
   components: {
   },
   mounted() {
-    this.getTasks(); //change to get from api
+     //change to get from api
+    this.user_id = $cookies.get('user_id');
+    this.getTasks();
   },
   emits : ['totalDones', 'totalTotals'],
   watch: {
@@ -173,14 +234,14 @@ export default {
   methods: {
     flipTask(tasks){
       let dataa = {task_name: tasks.text}
-      fetch('http://128.199.5.103:8181/api/v1/toggletask/'+'1/',{
+      fetch('http://128.199.5.103:8181/api/v1/toggletask/'+this.user_id+'/',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(dataa)
       }).then((data) => console.log(data))
     },
     getTasks() {
-      fetch('http://128.199.5.103:8181/api/v1/usertasklist/1').then(function(response) {
+      fetch('http://128.199.5.103:8181/api/v1/usertasklist/'+this.user_id+'/').then(function(response) {
         return response.json();
         
       }).then((data) => data.forEach(task=>{ 
@@ -193,7 +254,7 @@ export default {
       this.tasks.push({ id: this.id++, text: this.newTask, done: false })
       let dataa = {task_name: this.newTask}
       this.totalTotals++;
-      fetch('http://128.199.5.103:8181/api/v1/addtask/'+'1/',{
+      fetch('http://128.199.5.103:8181/api/v1/addtask/'+this.user_id+'/',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(dataa)
@@ -215,7 +276,7 @@ export default {
       this.tasks = this.tasks.filter((t) => t !== tasks)
       this.totalTotals--;
       let dataa = {task_name: temp}
-      fetch('http://128.199.5.103:8181/api/v1/deletetask/'+'1/',{
+      fetch('http://128.199.5.103:8181/api/v1/deletetask/'+this.user_id+'/',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(dataa)

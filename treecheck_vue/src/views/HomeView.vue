@@ -1,11 +1,25 @@
 <template>
   <div class="home">
     <div id="wrapper">
-      <router-link to="/" class="navbar-item"><img alt="Vue logo" src="../assets/logo.png" ></router-link>
+      <router-link to="/" class="logo"><img alt="Vue logo" width=20 height=10 src="https://cdn.discordapp.com/attachments/959836713239314457/959981007132557373/100.PNG" ></router-link>
+      <br>
       <!-- replace with logo image later-->
       <h1 class= "title">Tree Check</h1>
       <br>
-      <h2 class= "mid"> About tree check zzz Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi suscipit quibusdam doloremque pariatur neque facilis laborum odit accusamus, velit perspiciatis tenetur dignissimos voluptatum sed reprehenderit excepturi nobis? Cum, nemo eaque.</h2>
+      <h2 class= "mid"> Welcome to Tree Check! This is the future of productivity.</h2>
+      <br>
+      <h4>The purpose of this site is to motivate you to work towards finishing all of the tasks on your task list!
+
+          Feel free to invite your friends, and add them to compete!
+        <br>
+        <br>
+
+        As you finish all of your tasks, your personal tree will grow and flourish! You can check out the progress of your friends at  at the leaderboard section!
+
+        <br>
+        <br>
+        Good luck with your tasks, and remember: <b>Lets grow together!</b>
+      </h4>
 
     </div>
   </div>
@@ -26,6 +40,11 @@ export default {
 </script>
 
 <style>
+.logo img{
+  height: 160px;
+  width: auto;
+}
+
 .title{
   color:	#3b8570;
   font-family: 'Shrikhand', cursive;
@@ -50,5 +69,6 @@ body {
   font-size: 10px;
   padding: 30px;
 }
+
 
 </style>
