@@ -9,7 +9,8 @@ import bootstrap from 'bootstrap';
 import axios from 'axios';
 
 
-axios.defaults.baseURL = 'http://128.199.5.103:8181';
+axios.defaults.baseURL = 'https://128.199.5.103:8181/api/v1/';
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 createApp(App).use(store).use(router, axios).use(bootstrap).mount('#app')

@@ -3,7 +3,7 @@
     <h1 class="text-white">
       <strong>MY PROFILE</strong>
     </h1>
-    <span class="h1" id="greeting">HEY <u>NAME</u>!<span>
+    <span class="h1" id="greeting">HEY <u>NAME</u>!</span>
   </b-container>
 </template>
 
