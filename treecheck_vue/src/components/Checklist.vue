@@ -11,7 +11,7 @@
     <li v-for="task in tasks" :key="task.id">
       <input type="checkbox" v-model="task.task_status" @click="!task.task_status ? totalDones++ : totalDones--"> <!--this shits switched bc tastk_status is delayed-->
       <span :class="{done: task.task_status}">{{ task.text }}</span>
-      <button @click="removeTask(task)">X</button>
+      <b1 class = "removebutton"><button @click="removeTask(task)">Remove Task</button></b1>
     </li>
   </ul>
   </div>
@@ -27,7 +27,6 @@
 .done {
   text-decoration: line-through;
 }
-
 .split {
   height: 100%;
   /* width: 100%; */
@@ -38,7 +37,6 @@
   overflow-y: scroll;
   padding-top: 20px;
 }
-
 /* Control the left side */
 .left {
   position: fixed;
@@ -47,9 +45,6 @@
   left: 5vw;
   width: 50vw;
 }
-
-
-
 /* If you want the content centered horizontally and vertically */
 .centered {
   
@@ -60,13 +55,11 @@
   transform: translate(-50%, -50%); */
   text-align: center;
 }
-
 /* Style the image inside the centered container, if needed */
 .centered img {
   width: 200px;
   border-radius: 50%;
 }
-
 /* .add {
   position: fixed;
   top: 30vh;
@@ -77,7 +70,6 @@
 } */
 ul {
   padding: 0;
-
 }
 li {
   height: 70px;
@@ -102,7 +94,6 @@ li {
   /* border-width: 4px;
   border-color: black;*/
   /*border-style: dotted;*/
-
   /* 
   
   */
@@ -123,6 +114,9 @@ li {
   box-shadow: 0px 0px 5px 1px #f0f;*/
 }
 
+.removebutton{
+      color: white;
+}
 </style>
 
 
@@ -143,12 +137,10 @@ li {
 */
 import axios from 'axios';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-
 let head = {
   'Access-Control-Allow-Headers': '*',
   
 }
-
 export default {
   name: 'Checklist',
   data() {
@@ -181,14 +173,6 @@ export default {
   },
   methods: {
     getTasks() {
-      // axios.get('/api/v1/tasks-list/' + '1', {headers: head})
-      //   .then(response => {
-      //     this.tasks = response.data;
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
-
       fetch('http://128.199.5.103:8181/api/v1/usertasklist/1').then(function(response) {
         return response.json();
         
@@ -198,9 +182,7 @@ export default {
       }
         ));
       },
-
     addTask() {
-
       this.tasks.push({ id: this.id++, text: this.newTask, done: false })
       let dataa = {task_name: this.newTask}
       this.totalTotals++;
@@ -214,7 +196,6 @@ export default {
     addTasks(taskText) {
       this.tasks.push({ id: this.id++, text: taskText, done: false })
       this.totalTotals++;
-
     },
     removeTask(tasks) {
       let temp = tasks.text;
