@@ -40,7 +40,6 @@
 */
 import axios from 'axios';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-let id = 0;
 
 let head = {
   'Access-Control-Allow-Headers': '*',
@@ -51,6 +50,7 @@ export default {
   name: 'Checklist',
   data() {
     return {
+      id : 0,
       newTask: '',
       hideCompleted: false,
       isBusy: false,
@@ -86,28 +86,31 @@ export default {
       //     console.log(error);
       //   });
 
-      const element = document.querySelector('#post-request-set-headers .article-id');
-      const headers = { 
-          'Authorization': 'Bearer my-token',
-          'My-Custom-Header': 'foobar'
-      };
-      axios.get('usertasklist/' + '1/', { headers })
-          .then(response => element.innerHTML = response.data.id);
+      fetch('http://128.199.5.103:8181/api/v1/usertasklist/1').then(function(response) {
+        return response.json();
+        
+      }).then((data) => data.forEach(task=>{ 
+        this.id = task.id;
+        this.addTasks(task.task_name)
+      }
+        ));
       },
     addTask() {
-      this.tasks.push({ id: id++, text: this.newTask, done: false })
-      this.newTask = '';
+
+      this.tasks.push({ id: this.id++, text: this.newTask, done: false })
+      let dataa = {task_name: this.newTask}
       this.totalTotals++;
-      axios.post('/addtask', {
-          Headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-          },
-          user_id: 1,
-          task_name: this.tasks[this.tasks.length - 1].text,
-        }
-      )
+      fetch('http://128.199.5.103:8181/api/v1/addtask/'+'1/',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(dataa)
+      }).then((data) => console.log(data))
+      this.newTask = '';
+    },
+    addTasks(taskText) {
+      this.tasks.push({ id: this.id++, text: taskText, done: false })
+      this.totalTotals++;
+
     },
     removeTask(tasks) {
       let temp = tasks.text;
@@ -116,15 +119,12 @@ export default {
       }
       this.tasks = this.tasks.filter((t) => t !== tasks)
       this.totalTotals--;
-      axios.post('/deletetask', {
-          Headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-          },
-          user_id: 1,
-          task_name: temp,
-        }
-      )
+      let dataa = {task_name: temp}
+      fetch('http://128.199.5.103:8181/api/v1/deletetask/'+'1/',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(dataa)
+      }).then((data) => console.log(data))
     },
     toggleBusy() {
       this.isBusy = !this.isBusy;
