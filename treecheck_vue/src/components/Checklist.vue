@@ -9,7 +9,7 @@
   </form>
   <ul>
     <li v-for="task in tasks" :key="task.id">
-      <input type="checkbox" v-model="task.task_status" @click="!task.task_status ? totalDones++ : totalDones--"> <!--this shits switched bc tastk_status is delayed-->
+      <input type="checkbox" v-model="task.task_status" @click="!task.task_status ? totalDones++ : totalDones--; flipTask(task)"> <!--this shits switched bc tastk_status is delayed-->
       <span :class="{done: task.task_status}">{{ task.text }}</span>
       <button @click="removeTask(task)">X</button>
     </li>
@@ -185,6 +185,14 @@ export default {
     }
   },
   methods: {
+    flipTask(tasks){
+      let dataa = {task_name: tasks.text}
+      fetch('http://128.199.5.103:8181/api/v1/toggletask/'+'1/',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(dataa)
+      }).then((data) => console.log(data))
+    },
     getTasks() {
       // axios.get('/api/v1/tasks-list/' + '1', {headers: head})
       //   .then(response => {
@@ -199,7 +207,7 @@ export default {
         
       }).then((data) => data.forEach(task=>{ 
         this.id = task.id;
-        this.addTasks(task.task_name)
+        this.addTasks(task)
       }
         ));
       },
@@ -215,8 +223,11 @@ export default {
       }).then((data) => console.log(data))
       this.newTask = '';
     },
-    addTasks(taskText) {
-      this.tasks.push({ id: this.id++, text: taskText, done: false })
+    addTasks(task) {
+      this.tasks.push({ id: this.id++, text: task.task_name, task_status: task.task_status })
+      if(task.task_status){
+        this.totalDones++;
+      }
       this.totalTotals++;
 
     },
