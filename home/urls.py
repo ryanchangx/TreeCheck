@@ -7,4 +7,5 @@ urlpatterns = [
     path('tasks-list', views.TasksList.as_view()),
     path('register', registration_view, name="register"),
     path('login', obtain_auth_token, name="login"),
+    path('user/<int:user_id>', views.UserRequest.as_view()),
 ]

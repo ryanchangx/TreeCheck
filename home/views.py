@@ -43,3 +43,12 @@ class TasksList(APIView):
 
     def post(self):
         pass
+
+class UserRequest(APIView):
+    def get(self, request, user_id):
+        user = User.objects.get(id=user_id)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    def post(self):
+        pass
