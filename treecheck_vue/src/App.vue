@@ -13,7 +13,7 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <!--MAKE THIS LINK TO HOME IDK HOW-->
-              <li><a class="dropdown-item" href="#"><router-link to="/home" class="navbar-item">Home</router-link></a></li> 
+              <li><a class="dropdown-item" href="#"><router-link to="/" class="navbar-item">Home</router-link></a></li> 
               <li><a class="dropdown-item" href="#"><router-link to="/account" class="navbar-item">Account</router-link></a></li>
               <!--<li><a class="dropdown-item" href="#"><router-link to="/friends" class="navbar-item">Friends</router-link></a></li>-->
               <li><a class="dropdown-item" href="#"><router-link to="/checklist" class="navbar-item">My List</router-link></a></li>
@@ -48,6 +48,7 @@
   font-size: 20px;
   border: none;
   text-align: center;
+
 }
 
 li{
@@ -61,6 +62,7 @@ li{
   font-size: 20px;
   border: none;
   text-align: center;
+  
 }
 
 .dropdown-item{
@@ -74,6 +76,7 @@ li{
   font-size: 20px;
   border: none;
   text-align: center;
+  
 }
 @import'~bootstrap/dist/css/bootstrap.css';
  /* Dropdown Button */
@@ -83,6 +86,7 @@ li{
   padding: 16px;
   font-size: 16px;
   border: none;
+  
 }
 
 /* The container <div> - needed to position the dropdown content */

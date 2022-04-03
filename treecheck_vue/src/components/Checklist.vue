@@ -16,9 +16,6 @@
   </ul>
   </div>
   </div>
-
-
-
 </div>
 </template>
 
@@ -110,6 +107,8 @@ li {
   color: white;
   font-family: 'Shrikhand', cursive;
   font-size: 30px;
+  top: 10px;
+
   text-align: center;
   margin: 30px;
   border-radius: 10px;

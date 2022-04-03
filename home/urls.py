@@ -19,4 +19,5 @@ urlpatterns = [
     path('userlogin/', views.UserLogin.as_view()),
     path('users-list/', views.UsersList.as_view()),
     path('leaderboard-data/', views.LeaderboardData.as_view()),
+    path('user-profile/<int:user_id>', views.UserProfile.as_view()),
 ]

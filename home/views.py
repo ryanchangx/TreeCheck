@@ -157,3 +157,15 @@ class LeaderboardData(APIView):
 
     def post(self):
         pass
+
+
+class UserProfile(APIView):
+    def get(self, request, user_id):
+        user = User.objects.get(id=user_id)
+        us = UserSerializer(user)
+        tasks = Tasks.objects.filter(user_id=user.id)
+        ts = TasksSerializer(tasks, many=True)
+        return Response({'user': us.data, 'tasks': ts.data})
+    
+    def post(self):
+        pass

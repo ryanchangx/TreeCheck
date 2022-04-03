@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     # 'account.api.serializers',
 
     'allauth',
-
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
@@ -68,8 +67,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-
 
 ROOT_URLCONF = 'TreeCheck.urls'
 

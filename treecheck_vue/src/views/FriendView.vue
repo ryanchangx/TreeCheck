@@ -1,30 +1,29 @@
 <template>
-  <div id="wrapper">
-    <h1 class="title">
-      <strong>Account</strong>
-    </h1>
-    <div id="content">
-      <div id="info">
-        <br><br><br>
-        <h1 class = "left">Hey, welcome {{ username }}! </h1>
-        <h2 class="left"><br><br>It's great to have you here!</h2>
-
-        <br><br><br><br>
-        <h2 class = "left">
-          <br><br><br><br><br>
-          &emsp;made with ❤️ by TreeCheck
-        </h2>
+  <div class="home">
+    <div id="wrapper">
+      <h1 class="title"> My List </h1>
+      <div class="lb-container">
+          <FriendCheck @totalDones="msg => curCompleted=msg" @totalTotals="msg => total=msg" :curCompletedPass="curCompleted"></FriendCheck>
       </div>
-    </div>
-    <div class="split right">
+      <div class="split right">
+        <div class="centered">
+          <div id= "wrapper">
+            <!-- <b1 class= "growthprog">Today's Growth:</b1> -->
+          <!-- {{changeImage||filler}} -->
+        <!-- <TreeImage :totalPass="total" :curCompletedPass="curCompleted"></TreeImage> -->
+         <!-- <img alt="Vue logo" src="./1.png" > -->
+         <img :src='changeImage||filler'>
+         </div>
         <!--tree comp here-->
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
-
 <script>
 // @ is an alias to /src
+import FriendCheck from '@/components/FriendCheck.vue'  
 import TreeImage from '@/components/TreeImage.vue'
 import router from '../router'
 import Vue from 'vue';
@@ -32,27 +31,23 @@ let imgURLS = ["https://cdn.discordapp.com/attachments/959836713239314457/959981
 //onst EventBus = new Vue();
 //import Checklist from '../components/Checklist.vue'
 
-
 export default {
-  // todo fetch data
-  name: "Profile",
-  data() {
-    return {
-      id : 0,
-      username:"",
-      user_id : '',
-      newTask: '',
-      hideCompleted: false,
-      isBusy: false,
-      tasks: [],
-      totalTotals: 0, //get from storage
-      totalDones: 0, //get from storage
+  name: 'FriendView',
+  data(){
+    let user_id = new URLSearchParams(window.location.search);
+    return{
+      total : 0,
+      curCompleted : 0,
+      image : imgURLS[0],
+      filler : imgURLS[0],
+      userID : user_id,
     }
   },
   components: {
-    TreeImage
+    FriendCheck,
+    TreeImage,
   },
-  computed:{
+  computed: {
     changeImage(){
       return imgURLS[Math.floor(this.curCompleted/this.total*imgURLS.length)-1];
     }
@@ -64,39 +59,25 @@ export default {
       alert("please log in!")
     }
     this.userID = $cookies.get('userID');
-    this.username = $cookies.get('username');
-  },
-    emits : ['totalDones', 'totalTotals'],
-  watch: {
-    totalDones(){
-      this.$emit('totalDones', this.totalDones);
-      
-    },
-    totalTotals(){
-      this.$emit('totalTotals', this.totalTotals);
-      
-    }
   },
   methods:{
-    updateTree(left, right){
-      left ==='totalDone' ? this.total = right : this.curCompleted=right;
-      console.log(left, right);
-    }
   },
 }
 </script>
 
-
 <style scope>
-.left{
-  font-color: black;
+.growthprog{
+  color:	#3b8570;
+  font-family: 'Shrikhand', cursive;
+  font-size: 30px;
+  text-align: center;
+  top: 10vh;
+  letter-spacing: .5;
 }
-bd{
-  text-align: left;
-  font-family: 'Lora', sans-serif;
-  color: #273c2d;
-  font-size: 7px;
-  padding: 30px;
+
+body {
+  background-color:#cbe8d6;
+  text-align: center;
 }
 
 .split {
@@ -111,6 +92,7 @@ bd{
 
 /* Control the right side */
 .right {
+  background: rgba(255, 255, 255, 0.294);
   position: fixed;
   top: 30vh;
   height: 60vh;
@@ -141,13 +123,5 @@ bd{
   /* height: auto; */
 }
 
-/*
-#info {
-  display: flex;
-  text-align: start;
-  flex-direction: column;
-  padding: 8em;
-  margin-top: 5em;
-}
-*/
+
 </style>

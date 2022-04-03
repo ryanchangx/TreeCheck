@@ -68,6 +68,8 @@ body {
   color: #273c2d;
   font-size: 10px;
   padding: 30px;
+  margin-right:3%;
+  margin-left:3%;
 }
 
 

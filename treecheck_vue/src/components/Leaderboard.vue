@@ -4,7 +4,8 @@
       <h1 class="title"> Leaderboard </h1>
       <ul>
         <li v-for="tree in trees" :key="tree.id">
-            <h3 style="padding-top: 20px; word-spacing: 1250px">{{ tree.username }} {{ tree.treelevel }}</h3>
+            <h3 class="user">{{ tree.username }} </h3>
+            <h4 class="level">{{ tree.treelevel }} </h4>
         </li>
       </ul>
     </div>
@@ -46,20 +47,27 @@
 </script>
 
 <style>
-li .h3{
+li h3{
+  
   height: 70px;
-  background-color: #3b8570;
+  background-color: #3b857000;
   color: white;
   font-family: 'Shrikhand', cursive;
   font-size: 30px;
   text-align: center;
-  margin: 30px;
-  border-radius: 10px;
+  margin: 14px;
   display: grid;
+  grid-template-columns: 30px 1fr;
+  border-radius: 10px;
   /*grid-template-columns: 30px 1fr;*/
   letter-spacing: .5px;
+  left: 100px;
   /*column-gap: 20px;*/
 
+}
+li h4{
+  margin-right: 13px;
+  text-align: right;
 }
 body {
   background-color:#cbe8d6;

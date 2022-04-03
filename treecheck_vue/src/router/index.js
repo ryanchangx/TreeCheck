@@ -5,6 +5,7 @@ import ProfileView from '../views/ProfileView.vue'
 import ChecklistView from '../views/ChecklistView.vue'
 import { LayoutPlugin } from 'bootstrap-vue'
 import LoginView from '../views/LoginView.vue'
+import FriendView from '../views/FriendView.vue'
 
 
 const routes = [
@@ -40,6 +41,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginView
+  },
+  {
+    path: '/friend/?id=:id',
+    name: 'friend',
+    component: FriendView
   }
 ]
 

@@ -37,7 +37,7 @@ class Tasks(models.Model):
 
 class UserTree(models.Model):
     id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=100, default='changman')
+    username = models.CharField(max_length=100, default='dummy')
     treelevel = models.IntegerField(default=1)
 
     def __str__(self):
