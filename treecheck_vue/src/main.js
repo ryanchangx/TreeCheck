@@ -10,7 +10,6 @@ import axios from 'axios';
 
 
 axios.defaults.baseURL = 'http://128.199.5.103:8181';
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 createApp(App).use(store).use(router, axios).use(bootstrap).mount('#app')
 //createApp(App).use(store).use(router).use(BootstrapVue).use(IconsPlugin).mount('#app')

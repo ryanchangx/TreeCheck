@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Leaderboard from '../components/Leaderboard.vue'
-import Profile from '../components/Profile.vue'
+import ProfileView from '../views/ProfileView.vue'
 import ChecklistView from '../views/ChecklistView.vue'
 
 
@@ -27,7 +27,7 @@ const routes = [
   {
     path: '/account',
     name: 'account',
-    component: Profile
+    component: ProfileView
   },
   {
     path: '/checklist',
